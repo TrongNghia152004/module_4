@@ -22,12 +22,37 @@ public class SoccerPlayerController {
     @GetMapping("/detail/{id}")
     public String detailSoccerPlayer(@PathVariable("id") int id, Model model) {
         SoccerPlayer soccerPlayer = soccerPlayerService.findById(id);
-        model.addAttribute("soccerPlayer" , soccerPlayer);
+        model.addAttribute("soccerPlayer", soccerPlayer);
         return "/detail";
     }
+
     @GetMapping("/delete")
-    public String deleteSoccerPlayer(@RequestParam int idDelete){
+    public String deleteSoccerPlayer(@RequestParam int idDelete) {
         soccerPlayerService.deleteSoccerPlayer(idDelete);
+        return "redirect:/soccer-player";
+    }
+
+    @GetMapping("/create")
+    public String showCreateSoccerPlayer(Model model) {
+        model.addAttribute("soccerPlayer", new SoccerPlayer());
+        return "/create";
+    }
+
+    @PostMapping("/create")
+    public String createSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
+        soccerPlayerService.create(soccerPlayer);
+        return "redirect:/soccer-player";
+    }
+
+    @GetMapping("/update/{id}")
+    public String showUpdateSoccerPlayer(@PathVariable("id") int id, Model model) {
+        model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
+        return "/update";
+    }
+
+    @PostMapping("/update")
+    public String updateSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
+        soccerPlayerService.update(soccerPlayer);
         return "redirect:/soccer-player";
     }
 }

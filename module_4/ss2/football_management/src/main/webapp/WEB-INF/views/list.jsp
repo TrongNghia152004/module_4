@@ -14,6 +14,8 @@
 </style>
 <body>
 <h1 class="text-center" style="color: red">Danh sách cầu thủ bóng đá</h1>
+<a class="btn btn-add btn-sm" href="/soccer-player/create">
+    Thêm mới cầu thủ</a>
 <table class="table table-striped able-bordered table-hover">
     <tr>
         <th>Mã cầu thủ</th>
@@ -23,6 +25,8 @@
         <th>Vị trí</th>
         <th>Ảnh đại diện</th>
         <th>Thông tin chi tiết</th>
+        <th>Sửa</th>
+        <th>Xoá</th>
     </tr>
     <c:forEach var="soccerPlayer" items="${soccerPlayerList}">
         <tr>
@@ -33,11 +37,14 @@
             <td>${soccerPlayer.location}</td>
             <td><img src="${soccerPlayer.image}" alt=""></td>
             <td><a href="/soccer-player/detail/${soccerPlayer.id}">Xem chi tiết</a></td>
-            <td>                    <button type="button" onclick="infoDelete(${soccerPlayer.id},'${soccerPlayer.name}')"
-                                            class="btn btn-danger btn-sm"
-                                            data-toggle="modal" data-target="#exampleModal">
-                Xoá
-            </button></td>
+            <td><a href="/soccer-player/update/${soccerPlayer.id}" class="btn btn-primary">Sửa</a></td>
+            <td>
+                <button type="button" onclick="infoDelete(${soccerPlayer.id},'${soccerPlayer.name}')"
+                        class="btn btn-danger btn-sm"
+                        data-toggle="modal" data-target="#exampleModal">
+                    Xoá
+                </button>
+            </td>
         </tr>
     </c:forEach>
 </table>

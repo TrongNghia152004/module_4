@@ -8,4 +8,7 @@ public interface ISoccerPlayerRepository {
     List<SoccerPlayer> findAll();
     SoccerPlayer findById(int id);
     void deleteSoccerPlayer(int id);
+    void create(SoccerPlayer soccerPlayer);
+
+    void update(SoccerPlayer soccerPlayer);
 }

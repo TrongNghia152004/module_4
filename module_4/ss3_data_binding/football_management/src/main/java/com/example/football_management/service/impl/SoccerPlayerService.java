@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class SoccerPlayerService implements ISoccerPlayerService {
     @Autowired
     private ISoccerPlayerRepository soccerPlayerRepository;
+
     @Override
     public List<SoccerPlayer> findAll() {
         return soccerPlayerRepository.findAll();
@@ -19,5 +21,20 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     @Override
     public SoccerPlayer findById(int id) {
         return soccerPlayerRepository.findById(id);
+    }
+
+    @Override
+    public void deleteSoccerPlayer(int id) {
+        soccerPlayerRepository.deleteSoccerPlayer(id);
+    }
+
+    @Override
+    public void create(SoccerPlayer soccerPlayer) {
+        soccerPlayerRepository.create(soccerPlayer);
+    }
+
+    @Override
+    public void update(SoccerPlayer soccerPlayer) {
+        soccerPlayerRepository.update(soccerPlayer);
     }
 }
