@@ -36,8 +36,8 @@
             <td>${soccerPlayer.exp}</td>
             <td>${soccerPlayer.location}</td>
             <td><img src="${soccerPlayer.image}" alt=""></td>
-            <td><a href="/soccer-player/detail/${soccerPlayer.id}">Xem chi tiết</a></td>
-            <td><a href="/soccer-player/update/${soccerPlayer.id}" class="btn btn-primary">Sửa</a></td>
+            <td><a class="btn btn-primary btn-sm" href="/soccer-player/detail/${soccerPlayer.id}">Xem chi tiết</a></td>
+            <td><a href="/soccer-player/update/${soccerPlayer.id}" class="btn btn-primary btn-sm">Sửa</a></td>
             <td>
                 <button type="button" onclick="infoDelete(${soccerPlayer.id},'${soccerPlayer.name}')"
                         class="btn btn-danger btn-sm"

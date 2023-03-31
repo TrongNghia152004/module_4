@@ -19,16 +19,16 @@ public class SoccerPlayerController {
         return "/list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detailSoccerPlayer(@PathVariable("id") int id, Model model) {
+    @GetMapping("/detail")
+    public String detailSoccerPlayer(@RequestParam int id, Model model) {
         SoccerPlayer soccerPlayer = soccerPlayerService.findById(id);
         model.addAttribute("soccerPlayer", soccerPlayer);
         return "/detail";
     }
 
     @GetMapping("/delete")
-    public String deleteSoccerPlayer(@RequestParam int idDelete) {
-        soccerPlayerService.deleteSoccerPlayer(idDelete);
+    public String deleteSoccerPlayer(@RequestParam int deleteId) {
+        soccerPlayerService.deleteSoccerPlayer(deleteId);
         return "redirect:/soccer-player";
     }
 
@@ -44,16 +44,15 @@ public class SoccerPlayerController {
         return "redirect:/soccer-player";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateSoccerPlayer(@PathVariable("id") int id, Model model) {
+    @GetMapping("/update")
+    public String showUpdateSoccerPlayer(@RequestParam int id, Model model) {
         model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
         return "/update";
     }
 
     @PostMapping("/update")
-    public String updateSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer , Model model) {
+    public String updateSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
         soccerPlayerService.update(soccerPlayer);
-        model.addAttribute("soccerPlayer" , soccerPlayer);
         return "redirect:/soccer-player";
     }
 }
