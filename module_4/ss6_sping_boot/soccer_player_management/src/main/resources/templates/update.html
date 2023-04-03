@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa thông tin cầu thủ</title>
+</head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<form action="/soccer-player/update" method="post" th:object="${soccerPlayer}">
+    <input type="hidden" th:field="${soccerPlayer.id}">
+    <label for="code">Điền mã cầu thủ</label>
+    <input type="text" class="form-control" th:field="*{code}" id="code">
+    <label for="name">Điền tên cầu thủ</label>
+    <input type="text" class="form-control" th:field="*{name}" id="name">
+    <label for="dateOfBirth">Điền ngày sinh</label>
+    <input type="text" class="form-control" th:field="*{dateOfBirth}" id="dateOfBirth">
+    <label for="exp">Điền kinh nghiệm cầu thủ</label>
+    <input type="text" class="form-control" th:field="*{exp}" id="exp">
+    <label for="location">Điền vị trí cầu thủ</label>
+    <input type="text" class="form-control" th:field="*{location}" id="location">
+    <label for="image">Ảnh cầu thủ</label>
+    <input type="text" class="form-control" th:field="*{image}" id="image">
+    <div class="mt-3">
+        <input type="submit" class="btn btn-primary" value="Cập nhật">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/soccer-player'">Cancel</button>
+    </div>
+</form>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src=" https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

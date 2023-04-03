@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách cầu thủ</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+    img {
+        width: 69px;
+        height: 69px;
+    }
+
+    .active1 {
+        margin: 10px 7px;
+        background: white;
+        color: black;
+    }
+</style>
+<body>
+<h1 class="text-center" style="color: red">Danh sách cầu thủ bóng đá</h1>
+<form action="/soccer-player" method="get">
+    <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
+        <input class="form-control me-2" type="search" name="name" placeholder="tìm kiếm" th:value="${name}">
+        <input type="submit" class="btn btn-outline-warning"
+               style="width: 136px" value="Tìm kiếm">
+    </div>
+</form>
+<!--    <form action="/soccer-player" method="get">-->
+<!--        <div class="d-flex" style="margin-top: 16px; margin-right: 10px">-->
+<!--            <input class="form-control me-2" type="search" name="name" placeholder="tìm kiếm" th:value="${dateOfBirth}">-->
+<!--            <input type="submit" class="btn btn-outline-warning"-->
+<!--                   style="width: 136px" value="Tìm kiếm">-->
+<!--        </div>-->
+<!--    </form>-->
+<a class="btn btn-add btn-sm" href="/soccer-player/create">
+    Thêm mới cầu thủ</a>
+<table class="table table-striped able-bordered table-hover">
+    <tr>
+        <th>Mã cầu thủ</th>
+        <th>Họ và tên</th>
+        <th>Ngày sinh</th>
+        <th>Kinh nghiệm</th>
+        <th>Vị trí</th>
+        <th>Ảnh đại diện</th>
+        <th>Thông tin chi tiết</th>
+        <th>Sửa</th>
+        <th>Xoá</th>
+    </tr>
+    <tr th:each="soccerPlayer, iterStat : ${soccerPlayerList}">
+        <td th:text="*{soccerPlayer.code}"></td>
+        <td th:text="*{soccerPlayer.name}"></td>
+        <td th:text="*{soccerPlayer.dateOfBirth}"></td>
+        <td th:text="*{soccerPlayer.exp}"></td>
+        <td th:text="*{soccerPlayer.location}"></td>
+        <td><img th:src="*{soccerPlayer.image}">
+        <td><a th:href="@{/soccer-player/detail?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Thông tin chi
+            tiết</a></td>
+        <td><a th:href="@{/soccer-player/update?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Sửa</a></td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"
+                    th:attr="onclick=|infoDelete('${soccerPlayer.id}', '${soccerPlayer.name}')|">
+                Delete
+            </button>
+        </td>
+        </td>
+    </tr>
+</table>
+<div class="text-center">
+    <a class="page-item btn btn-dark active1" th:if="${soccerPlayerList.hasPrevious()}"
+       th:href="@{/soccer-player(page = ${soccerPlayerList.number - 1}, name = ${name})}">
+        <i class="ti-angle-left">Previous</i>
+    </a>
+
+    <a class="page-item number btn btn-dark active1"
+       th:classappend="${pageNumber == soccerPlayerList.number + 1} ? 'active' : ''"
+       th:each="pageNumber : ${pageNumberList}"
+       th:href="@{/soccer-player(page = ${pageNumber - 1},name = ${name})}"
+       th:text="${pageNumber}">
+    </a>
+
+    <a class="page-item btn btn-dark active1" th:if="${soccerPlayerList.hasNext()}"
+       th:href="@{/soccer-player(page = ${soccerPlayerList.number + 1}, name =${name})}">
+        <i class="ti-angle-right">Next</i>
+    </a>
+</div>
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Xóa cầu thủ </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/soccer-player/delete">
+                <div class="modal-body">
+                    <input type="hidden" name="deleteId" id="deleteId">
+                    <span>Bạn có chắc muốn xóa </span> <span id="deleteName"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-danger">Xoá</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function infoDelete(id, name) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").innerText = name;
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
