@@ -13,19 +13,19 @@
 <form action="/soccer-player/update" method="post" th:object="${soccerPlayer}">
     <input type="hidden" th:field="${soccerPlayer.id}">
     <label for="code">Điền mã cầu thủ</label>
-    <input type="text" class="form-control" th:field="*{code}" id="code">
+    <input type="text" class="form-control" th:field="${soccerPlayer.code}" id="code">
     <label for="name">Điền tên cầu thủ</label>
-    <input type="text" class="form-control" th:field="*{name}" id="name">
+    <input type="text" class="form-control" th:field="${soccerPlayer.name}" id="name">
     <label for="dateOfBirth">Điền ngày sinh</label>
-    <input type="text" class="form-control" th:field="*{dateOfBirth}" id="dateOfBirth">
+    <input type="text" class="form-control" th:field="${soccerPlayer.dateOfBirth}" id="dateOfBirth">
     <label for="exp">Điền kinh nghiệm cầu thủ</label>
-    <input type="text" class="form-control" th:field="*{exp}" id="exp">
+    <input type="text" class="form-control" th:field="${soccerPlayer.exp}" id="exp">
     <label for="location">Điền vị trí cầu thủ</label>
-    <input type="text" class="form-control" th:field="*{location}" id="location">
+    <input type="text" class="form-control" th:field="${soccerPlayer.location}" id="location">
     <label for="image">Ảnh cầu thủ</label>
-    <input type="text" class="form-control" th:field="*{image}" id="image">
+    <input type="text" class="form-control" th:field="${soccerPlayer.image}" id="image">
     <label>Đội tuyển</label>
-    <select class="form-control" th:field="*{team}">
+    <select class="form-control" th:field="${soccerPlayer.team}">
         <option th:each="team : ${teams}" th:text="${team.name}" th:value="${team.id}"></option>
     </select>
     <div class="mt-3">
