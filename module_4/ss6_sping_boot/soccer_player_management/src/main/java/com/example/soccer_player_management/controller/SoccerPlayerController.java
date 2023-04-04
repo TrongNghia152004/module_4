@@ -49,11 +49,6 @@ public class SoccerPlayerController {
         for (int i = 1; i <= soccerPlayerPage.getTotalPages(); i++) {
             pageNumberList.add(i);
         }
-        for (int i = 1; i <= pageNumberList.size(); i++) {
-            if (i == page) {
-                model.addAttribute("page", i - 1);
-            }
-        }
         model.addAttribute("pageNumberList", pageNumberList);
         return "/list";
     }
