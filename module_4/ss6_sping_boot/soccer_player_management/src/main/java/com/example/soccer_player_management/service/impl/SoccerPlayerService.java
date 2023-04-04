@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -17,8 +17,8 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     private ISoccerPlayerRepository soccerPlayerRepository;
 
     @Override
-    public Page<SoccerPlayer> findAll(Pageable pageable, String name) {
-        return soccerPlayerRepository.findAllByNameContaining(pageable, name);
+    public Page<SoccerPlayer> findAll(String name , LocalDate startDate, LocalDate endDate , Pageable pageable) {
+        return soccerPlayerRepository.findAllByNameAndBirthdateBetween(name , startDate , endDate , pageable);
     }
 
     @Override

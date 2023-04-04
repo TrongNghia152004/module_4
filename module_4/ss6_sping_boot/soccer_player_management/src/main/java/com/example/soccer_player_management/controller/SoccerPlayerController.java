@@ -9,10 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,24 +29,21 @@ public class SoccerPlayerController {
 
     @GetMapping("")
     public String showSoccerPlayerList(@PageableDefault(size = 3) Pageable pageable
-            , @RequestParam(required = false) String name, Integer page, Model model) {
-        if (name == null) {
-            name = "";
-        }
-        if (page == null) {
-            page = 1;
-        }
+                , @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "1") Integer page,
+                                       @RequestParam(defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                       @RequestParam(defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
         Sort sort = null;
         if (name == name) {
             sort = Sort.by("dateOfBirth").ascending();
         } else {
             sort = Sort.by("name").ascending();
         }
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
-        Page<SoccerPlayer> soccerPlayerPage = soccerPlayerService.findAll(sortedPageable, name);
-        model.addAttribute("soccerPlayerList", soccerPlayerPage);
-
         model.addAttribute("name", name);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        Page<SoccerPlayer> soccerPlayerPage = soccerPlayerService.findAll(name , startDate , endDate , sortedPageable);
+        model.addAttribute("soccerPlayerList", soccerPlayerPage);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= soccerPlayerPage.getTotalPages(); i++) {
             pageNumberList.add(i);
@@ -61,7 +60,8 @@ public class SoccerPlayerController {
     }
 
     @GetMapping("/delete")
-    public String deleteSoccerPlayer(@RequestBody SoccerPlayer soccerPlayer) {
+    public String deleteSoccerPlayer(@RequestParam int deleteId) {
+        SoccerPlayer soccerPlayer = soccerPlayerService.findById(deleteId).get();
         soccerPlayerService.deleteSoccerPlayer(soccerPlayer);
         return "redirect:/soccer-player";
     }

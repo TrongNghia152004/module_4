@@ -1,7 +1,7 @@
 package com.example.soccer_player_management.model;
 
 import javax.persistence.*;
-
+import java.time.LocalDate;
 @Entity
 @Table(name = "soccer_player")
 public class SoccerPlayer {
@@ -74,7 +74,7 @@ public class SoccerPlayer {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+        public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
