@@ -79,7 +79,7 @@ public class SoccerPlayerController {
     @PostMapping("/create")
     public String createSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, Model model) {
-        new SoccerPlayerCreateAndUpdateDTO().validate(soccerPlayerCreateAndUpdateDTO , bindingResult);
+        new SoccerPlayerCreateAndUpdateDTO().validate(soccerPlayerCreateAndUpdateDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("teams", teamService.findAll());
             return "/create";
@@ -99,6 +99,7 @@ public class SoccerPlayerController {
     @PostMapping("/update")
     public String updateSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO, BindingResult bindingResult, Model model
             , RedirectAttributes redirectAttributes) {
+        new SoccerPlayerCreateAndUpdateDTO().validate(soccerPlayerCreateAndUpdateDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("teams", teamService.findAll());
             return "/update";

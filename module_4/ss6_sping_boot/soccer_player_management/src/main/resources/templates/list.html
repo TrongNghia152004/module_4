@@ -32,9 +32,12 @@
 <h1 class="text-center" style="color: red">Danh sách cầu thủ bóng đá</h1>
 <form action="/soccer-player" method="get">
     <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
-        <input class="form-control me-2" type="search" id="name" name="name" placeholder="tìm kiếm" th:value="${name}">
-        <input class="form-control me-2" type="date" id="startDate" name="startDate" placeholder="tìm kiếm" th:value="${startDate}">
-        <input class="form-control me-2" type="date" id="endDate" name="endDate" placeholder="tìm kiếm" th:value="${endDate}">
+        <input class="form-control me-2" type="search" id="name" name="name" placeholder="tìm kiếm"
+               th:value="${name}">
+        <input class="form-control me-2" type="date" id="startDate" name="startDate" placeholder="tìm kiếm"
+               th:value="${startDate}">
+        <input class="form-control me-2" type="date" id="endDate" name="endDate" placeholder="tìm kiếm"
+               th:value="${endDate}">
         <input type="submit" class="btn btn-outline-warning"
                style="width: 136px" value="Tìm kiếm">
     </div>

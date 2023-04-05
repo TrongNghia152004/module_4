@@ -8,22 +8,25 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
-<form action="/soccer-player/create" method="post" th:object="${soccerPlayer}">
+<form action="/soccer-player/create" method="post" th:object="${soccerPlayerCreateAndUpdateDTO}">
     <label for="code">Điền mã cầu thủ</label>
     <input type="text" class="form-control" th:field="*{code}" id="code">
     <label for="name">Điền tên cầu thủ</label>
     <input type="text" class="form-control" th:field="*{name}" id="name">
+    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     <label for="dateOfBirth">Điền ngày sinh</label>
-<!--    <input type="date" class="form-control" th:field="*{dateOfBirth}" id="dateOfBirth" th:attr="placeholder=${#dates.format(dateOfBirth, 'yyyy-MM-dd')}"/>-->
     <input type="date" class="form-control" th:field="*{dateOfBirth}" id="dateOfBirth">
+    <p style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></p>
     <label for="exp">Điền kinh nghiệm cầu thủ</label>
     <input type="text" class="form-control" th:field="*{exp}" id="exp">
+    <p style="color: red" th:if="${#fields.hasErrors('exp')}" th:errors="*{exp}"></p>
     <label for="location">Điền vị trí cầu thủ</label>
     <input type="text" class="form-control" th:field="*{location}" id="location">
+    <p style="color: red" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
     <label for="image">Ảnh cầu thủ</label>
     <input type="text" class="form-control" th:field="*{image}" id="image">
     <label>Đội tuyển</label>
-    <select th:field="*{team}">
+    <select class="form-control" th:field="*{team}">
         <option th:each="team : ${teams}" th:text="${team.name}" th:value="${team.id}"></option>
     </select>
     <div class="mt-3">
