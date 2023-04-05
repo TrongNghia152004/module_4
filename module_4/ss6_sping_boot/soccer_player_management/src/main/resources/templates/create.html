@@ -16,9 +16,7 @@
     <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     <label for="dateOfBirth">Điền ngày sinh</label>
     <input type="date" class="form-control" th:field="*{dateOfBirth}" id="dateOfBirth">
-    <label for="dateOfBirth">Điền tuổi cầu thủ</label>
-    <input type="text" class="form-control" th:field="*{age}" id="age">
-    <p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+    <p style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></p>
     <label for="exp">Điền kinh nghiệm cầu thủ</label>
     <input type="text" class="form-control" th:field="*{exp}" id="exp">
     <p style="color: red" th:if="${#fields.hasErrors('exp')}" th:errors="*{exp}"></p>

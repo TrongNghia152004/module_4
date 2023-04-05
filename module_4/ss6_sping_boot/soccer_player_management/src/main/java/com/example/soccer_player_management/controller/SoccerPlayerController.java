@@ -79,6 +79,7 @@ public class SoccerPlayerController {
     @PostMapping("/create")
     public String createSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO, BindingResult bindingResult
             , RedirectAttributes redirectAttributes, Model model) {
+        new SoccerPlayerCreateAndUpdateDTO().validate(soccerPlayerCreateAndUpdateDTO , bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("teams", teamService.findAll());
             return "/create";

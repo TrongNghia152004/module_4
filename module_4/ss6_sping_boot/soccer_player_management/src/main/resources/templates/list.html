@@ -46,7 +46,6 @@
         <th>Mã cầu thủ</th>
         <th>Họ và tên</th>
         <th>Ngày sinh</th>
-        <th>Tuổi</th>
         <th>Kinh nghiệm</th>
         <th>Vị trí</th>
         <th>Ảnh đại diện</th>
@@ -59,7 +58,6 @@
         <td th:text="*{soccerPlayer.code}"></td>
         <td th:text="*{soccerPlayer.name}"></td>
         <td th:text="${soccerPlayer.dateOfBirth}"></td>
-        <td th:text="${soccerPlayer.age}"></td>
         <td th:text="*{soccerPlayer.exp}"></td>
         <td th:text="*{soccerPlayer.location}"></td>
         <td><img th:src="*{soccerPlayer.image}">
