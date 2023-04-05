@@ -1,6 +1,6 @@
 package com.example.soccer_player_management.controller;
 
-import com.example.soccer_player_management.dto.SoccerPlayerCreateDTO;
+import com.example.soccer_player_management.dto.SoccerPlayerCreateAndUpdateDTO;
 import com.example.soccer_player_management.model.SoccerPlayer;
 import com.example.soccer_player_management.service.ISoccerPlayerService;
 import com.example.soccer_player_management.service.ITeamService;
@@ -33,20 +33,19 @@ public class SoccerPlayerController {
 
     @GetMapping("")
     public String showSoccerPlayerList(@PageableDefault(size = 3) Pageable pageable
-                , @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "1") Integer page,
+            , @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "1") Integer page,
                                        @RequestParam(defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                        @RequestParam(defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
         Sort sort = null;
+        sort = Sort.by("name").ascending();
         if (name == name) {
             sort = Sort.by("dateOfBirth").ascending();
-        } else {
-            sort = Sort.by("name").ascending();
         }
         model.addAttribute("name", name);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
-        Page<SoccerPlayer> soccerPlayerPage = soccerPlayerService.findAll(name , startDate , endDate , sortedPageable);
+        Page<SoccerPlayer> soccerPlayerPage = soccerPlayerService.findAll(name, startDate, endDate, sortedPageable);
         model.addAttribute("soccerPlayerList", soccerPlayerPage);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= soccerPlayerPage.getTotalPages(); i++) {
@@ -72,33 +71,39 @@ public class SoccerPlayerController {
 
     @GetMapping("/create")
     public String showCreateSoccerPlayer(Model model) {
-        model.addAttribute("soccerPlayerCreateDTO", new SoccerPlayerCreateDTO());
+        model.addAttribute("soccerPlayerCreateAndUpdateDTO", new SoccerPlayerCreateAndUpdateDTO());
         model.addAttribute("teams", teamService.findAll());
         return "/create";
     }
 
     @PostMapping("/create")
-    public String createSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateDTO soccerPlayerCreateDTO , BindingResult bindingResult
-    , RedirectAttributes redirectAttributes , Model model) {
-        if (bindingResult.hasErrors()){
+    public String createSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO, BindingResult bindingResult
+            , RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("teams", teamService.findAll());
             return "/create";
         }
-        redirectAttributes.addFlashAttribute("msg" , "Thêm mới thành công");
-        soccerPlayerService.create(soccerPlayerCreateDTO);
+        redirectAttributes.addFlashAttribute("msg", "Thêm mới thành công");
+        soccerPlayerService.create(soccerPlayerCreateAndUpdateDTO);
         return "redirect:/soccer-player";
     }
 
     @GetMapping("/update")
     public String showUpdateSoccerPlayer(@RequestParam int id, Model model) {
-        model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
+        model.addAttribute("soccerPlayerCreateAndUpdateDTO", soccerPlayerService.findById(id));
         model.addAttribute("teams", teamService.findAll());
         return "/update";
     }
 
     @PostMapping("/update")
-    public String updateSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
-        soccerPlayerService.update(soccerPlayer);
+    public String updateSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO, BindingResult bindingResult, Model model
+            , RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("teams", teamService.findAll());
+            return "/update";
+        }
+        redirectAttributes.addFlashAttribute("msg", "Chỉnh sửa thành công");
+        soccerPlayerService.update(soccerPlayerCreateAndUpdateDTO);
         return "redirect:/soccer-player";
     }
 }

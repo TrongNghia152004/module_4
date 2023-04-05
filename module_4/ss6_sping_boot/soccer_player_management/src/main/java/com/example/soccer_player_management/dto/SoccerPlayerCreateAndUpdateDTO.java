@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import javax.validation.constraints.*;
 
-public class SoccerPlayerCreateDTO implements Validator {
+public class SoccerPlayerCreateAndUpdateDTO implements Validator {
     private int id;
     private String code;
     @NotBlank(message = "Tên không được để trống!")
@@ -15,17 +15,17 @@ public class SoccerPlayerCreateDTO implements Validator {
     @Min(value = 16, message = "Tuổi phải từ 16 đến 100!")
     @Max(value = 100, message = "Tuổi phải từ 16 đến 100!")
     private int age;
-    @Pattern(regexp = "^[0-9]*$", message = "Kinh nghiệm phải là số nguyên dương!")
-    private int exp;
-    @Pattern(regexp = "^(Trung vệ|Hậu vệ|Tiền vệ|Tiền đạo|Thủ môn)$", message = "Vị trí phải là 1 trong 4 vị trí!")
+    @Pattern(regexp = "^[0-9]*[1-9][0-9]*$", message = "Kinh nghiệm phải là số nguyên dương!")
+    private String exp;
+    @Pattern(regexp = "^(Trung vệ|Hậu vệ|Tiền vệ|Tiền đạo|Thủ môn)$", message = "Vị trí phải là 1 trong 4 vị trí(Trung vệ,  Hậu vệ,Tiền vệ,Tiền đạo,Thủ môn)!")
     private String location;
     private String image;
     private Team team;
 
-    public SoccerPlayerCreateDTO() {
+    public SoccerPlayerCreateAndUpdateDTO() {
     }
 
-    public SoccerPlayerCreateDTO(int id, String code, String name, String dateOfBirth, int age, int exp, String location, String image, Team team) {
+    public SoccerPlayerCreateAndUpdateDTO(int id, String code, String name, String dateOfBirth, int age, String exp, String location, String image, Team team) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -77,11 +77,11 @@ public class SoccerPlayerCreateDTO implements Validator {
         this.age = age;
     }
 
-    public int getExp() {
+    public String getExp() {
         return exp;
     }
 
-    public void setExp(int exp) {
+    public void setExp(String exp) {
         this.exp = exp;
     }
 

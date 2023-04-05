@@ -10,22 +10,29 @@
 </head>
 <body>
 
-<form action="/soccer-player/update" method="post" th:object="${soccerPlayer}">
-    <input type="hidden" th:field="${soccerPlayer.id}">
+<form action="/soccer-player/update" method="post" th:object="${soccerPlayerCreateAndUpdateDTO}">
+    <input type="hidden" th:field="${soccerPlayerCreateAndUpdateDTO.id}">
     <label for="code">Điền mã cầu thủ</label>
-    <input type="text" class="form-control" th:field="${soccerPlayer.code}" id="code">
+    <input type="text" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.code}" id="code">
     <label for="name">Điền tên cầu thủ</label>
-    <input type="text" class="form-control" th:field="${soccerPlayer.name}" id="name">
+    <input type="text" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.name}" id="name">
+    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="${soccerPlayerCreateAndUpdateDTO.name}"></p>
     <label for="dateOfBirth">Điền ngày sinh</label>
-    <input type="date" class="form-control" th:field="${soccerPlayer.dateOfBirth}" id="dateOfBirth">
+    <input type="date" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.dateOfBirth}" id="dateOfBirth">
+    <label for="dateOfBirth">Điền tuổi cầu thủ</label>
+    <input type="text" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.age}" id="age">
+    <p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="${soccerPlayerCreateAndUpdateDTO.age}"></p>
     <label for="exp">Điền kinh nghiệm cầu thủ</label>
-    <input type="text" class="form-control" th:field="${soccerPlayer.exp}" id="exp">
+    <input type="text" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.exp}" id="exp">
+    <p style="color: red" th:if="${#fields.hasErrors('exp')}" th:errors="${soccerPlayerCreateAndUpdateDTO.exp}"></p>
     <label for="location">Điền vị trí cầu thủ</label>
-    <input type="text" class="form-control" th:field="${soccerPlayer.location}" id="location">
+    <input type="text" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.location}" id="location">
+    <p style="color: red" th:if="${#fields.hasErrors('location')}"
+       th:errors="${soccerPlayerCreateAndUpdateDTO.location}"></p>
     <label for="image">Ảnh cầu thủ</label>
-    <input type="text" class="form-control" th:field="${soccerPlayer.image}" id="image">
+    <input type="text" class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.image}" id="image">
     <label>Đội tuyển</label>
-    <select class="form-control" th:field="${soccerPlayer.team}">
+    <select class="form-control" th:field="${soccerPlayerCreateAndUpdateDTO.team}">
         <option th:each="team : ${teams}" th:text="${team.name}" th:value="${team.id}"></option>
     </select>
     <div class="mt-3">
