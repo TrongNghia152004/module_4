@@ -14,6 +14,8 @@ public class SoccerPlayer {
     private String name;
     @Column(name = "date_of_birth")
     private String dateOfBirth;
+    @Column(name = "age")
+    private int age;
     @Column(name = "exp")
     private String exp;
     @Column(name = "location")
@@ -35,15 +37,24 @@ public class SoccerPlayer {
     public SoccerPlayer() {
     }
 
-    public SoccerPlayer(int id, String code, String name, String dateOfBirth, String exp, String location, String image, Team team) {
+    public SoccerPlayer(int id, String code, String name, String dateOfBirth, int age, String exp, String location, String image, Team team) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
+        this.age = age;
         this.exp = exp;
         this.location = location;
         this.image = image;
         this.team = team;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getId() {

@@ -1,5 +1,6 @@
 package com.example.soccer_player_management.service;
 
+import com.example.soccer_player_management.dto.SoccerPlayerCreateDTO;
 import com.example.soccer_player_management.model.SoccerPlayer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ public interface ISoccerPlayerService {
 
     void deleteSoccerPlayer(SoccerPlayer soccerPlayer);
 
-    void create(SoccerPlayer soccerPlayer);
+    void create(SoccerPlayerCreateDTO soccerPlayerCreateDTO);
 
     void update(SoccerPlayer soccerPlayer);
 }

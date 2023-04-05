@@ -1,5 +1,6 @@
 package com.example.soccer_player_management.controller;
 
+import com.example.soccer_player_management.dto.SoccerPlayerCreateDTO;
 import com.example.soccer_player_management.model.SoccerPlayer;
 import com.example.soccer_player_management.service.ISoccerPlayerService;
 import com.example.soccer_player_management.service.ITeamService;
@@ -12,8 +13,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,14 +72,20 @@ public class SoccerPlayerController {
 
     @GetMapping("/create")
     public String showCreateSoccerPlayer(Model model) {
-        model.addAttribute("soccerPlayer", new SoccerPlayer());
+        model.addAttribute("soccerPlayerCreateDTO", new SoccerPlayerCreateDTO());
         model.addAttribute("teams", teamService.findAll());
         return "/create";
     }
 
     @PostMapping("/create")
-    public String createSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
-        soccerPlayerService.create(soccerPlayer);
+    public String createSoccerPlayer(@Valid @ModelAttribute SoccerPlayerCreateDTO soccerPlayerCreateDTO , BindingResult bindingResult
+    , RedirectAttributes redirectAttributes , Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("teams", teamService.findAll());
+            return "/create";
+        }
+        redirectAttributes.addFlashAttribute("msg" , "Thêm mới thành công");
+        soccerPlayerService.create(soccerPlayerCreateDTO);
         return "redirect:/soccer-player";
     }
 
