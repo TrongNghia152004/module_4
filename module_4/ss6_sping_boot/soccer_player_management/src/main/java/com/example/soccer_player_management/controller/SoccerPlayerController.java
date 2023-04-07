@@ -4,6 +4,7 @@ import com.example.soccer_player_management.dto.SoccerPlayerCreateAndUpdateDTO;
 import com.example.soccer_player_management.model.SoccerPlayer;
 import com.example.soccer_player_management.service.ISoccerPlayerService;
 import com.example.soccer_player_management.service.ITeamService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +32,13 @@ public class SoccerPlayerController {
     private ISoccerPlayerService soccerPlayerService;
     @Autowired
     private ITeamService teamService;
+
+    @GetMapping("/football-team")
+    public String footballTeam(Model model) {
+        List<SoccerPlayer> soccerPlayerList = soccerPlayerService.footballTeam();
+        model.addAttribute("soccerPlayerList" , soccerPlayerList);
+        return "/football-team";
+    }
 
     @GetMapping("")
     public String showSoccerPlayerList(@PageableDefault(size = 3) Pageable pageable
@@ -106,6 +115,13 @@ public class SoccerPlayerController {
         }
         redirectAttributes.addFlashAttribute("msg", "Chỉnh sửa thành công");
         soccerPlayerService.update(soccerPlayerCreateAndUpdateDTO);
+        return "redirect:/soccer-player";
+    }
+
+    @GetMapping("/register")
+    public String registerSoccerPlayer(@RequestParam int registerId) {
+        SoccerPlayer soccerPlayer = soccerPlayerService.findById(registerId).get();
+        soccerPlayerService.register(soccerPlayer);
         return "redirect:/soccer-player";
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +47,29 @@ public class SoccerPlayerService implements ISoccerPlayerService {
         SoccerPlayer soccerPlayer = new SoccerPlayer();
         BeanUtils.copyProperties(soccerPlayerCreateAndUpdateDTO, soccerPlayer);
         soccerPlayerRepository.save(soccerPlayer);
+    }
+
+    @Override
+    public void register(SoccerPlayer soccerPlayer) {
+        List<SoccerPlayer> soccerPlayerList = soccerPlayerRepository.findAll();
+        List<SoccerPlayer> registeredList = new ArrayList<>();
+        for (int i = 0; i < soccerPlayerList.size(); i++) {
+            if (soccerPlayerList.get(i).getStatus() == "Đã đăng kí") {
+                registeredList.add(soccerPlayerList.get(i));
+            }
+        }
+        if (registeredList.size() <= 11) {
+            for (int i = 0; i < soccerPlayerList.size(); i++) {
+                if (soccerPlayerList.get(i).getId() == soccerPlayer.getId()) {
+                    soccerPlayerList.get(i).setStatus("Đã đăng kí");
+                    soccerPlayerRepository.save(soccerPlayerList.get(i));
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<SoccerPlayer> footballTeam() {
+        return soccerPlayerRepository.findAllByStatus();
     }
 }

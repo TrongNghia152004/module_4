@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface ISoccerPlayerService {
@@ -18,4 +19,8 @@ public interface ISoccerPlayerService {
     void create(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO);
 
     void update(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO);
+
+    void register(SoccerPlayer soccerPlayer);
+
+    List<SoccerPlayer> footballTeam();
 }

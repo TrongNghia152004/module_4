@@ -20,11 +20,12 @@ public class SoccerPlayerCreateAndUpdateDTO implements Validator {
     private String location;
     private String image;
     private Team team;
+    private String status = "Dự bị";
 
     public SoccerPlayerCreateAndUpdateDTO() {
     }
 
-    public SoccerPlayerCreateAndUpdateDTO(int id, String code, String name, String dateOfBirth, String exp, String location, String image, Team team) {
+    public SoccerPlayerCreateAndUpdateDTO(int id, String code, String name, String dateOfBirth, String exp, String location, String image, Team team, String status) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -33,7 +34,9 @@ public class SoccerPlayerCreateAndUpdateDTO implements Validator {
         this.location = location;
         this.image = image;
         this.team = team;
+        this.status = status;
     }
+
 
     public int getId() {
         return id;

@@ -15,8 +15,6 @@ public class SoccerPlayer {
     private String name;
     @Column(name = "date_of_birth")
     private String dateOfBirth;
-    @Column(name = "age")
-    private int age;
     @Column(name = "exp")
     private String exp;
     @Column(name = "location")
@@ -26,6 +24,8 @@ public class SoccerPlayer {
     @ManyToOne
     @JoinColumn(name = "id_team")
     private Team team;
+
+    private String status = "Dự bị";
 
     public Team getTeam() {
         return team;
@@ -38,24 +38,24 @@ public class SoccerPlayer {
     public SoccerPlayer() {
     }
 
-    public SoccerPlayer(int id, String code, String name, String dateOfBirth, int age, String exp, String location, String image, Team team) {
+    public SoccerPlayer(int id, String code, String name, String dateOfBirth, String exp, String location, String image, Team team, String status) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.age = age;
         this.exp = exp;
         this.location = location;
         this.image = image;
         this.team = team;
+        this.status = status;
     }
 
-    public int getAge() {
-        return age;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {
