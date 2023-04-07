@@ -124,4 +124,8 @@ public class SoccerPlayerController {
         soccerPlayerService.register(soccerPlayer);
         return "redirect:/soccer-player";
     }
+//    @ExceptionHandler(Exception.class)
+//    public String handle(){
+//        return "/error";
+//    }
 }

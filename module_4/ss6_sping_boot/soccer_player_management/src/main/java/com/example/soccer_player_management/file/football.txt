@@ -1,0 +1,4 @@
+showSoccerPlayerList Số lượng cầu thủ đăng ký đá : 6
+showSoccerPlayerList Số lượng cầu thủ đăng ký đá : 6
+registerSoccerPlayer Số lượng cầu thủ đăng ký đá : 7
+showSoccerPlayerList Số lượng cầu thủ đăng ký đá : 7
