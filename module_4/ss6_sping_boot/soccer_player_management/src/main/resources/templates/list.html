@@ -52,31 +52,33 @@
     <div class="row">
         <div class="col-md-4" th:each="player : ${soccerPlayerList}">
             <div class="card">
-                <img style="width: 100%; height: 50%" class="card-img-top" th:src="${player.image}" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title" th:text="${player.name}"></h5>
-                                    <span> Mã cầu thủ: </span>
-                                    <span class="card-text" th:text="${player.code}"></span><br>
-                                    <span> Ngày sinh: </span>
-                                    <span class="card-text" th:text="${player.dateOfBirth}"></span><br>
-                                    <span> Kinh nghiệm: </span>
-                                    <span class="card-text" th:text="${player.exp}"></span>
-                                    <span> năm </span><br>
-                                    <span> Vị trí cầu thủ: </span>
-                                    <span class="card-text" th:text="${player.location}"></span><br>
-                                    <span> Đội tuyển: </span>
-                                    <span class="card-text" th:text="${player.team.name}"></span><br>
-                                    <span> Trạng thái: </span>
-                                    <span class="card-text" th:text="${player.status}"></span><br>
-                                    <a th:href="@{/soccer-player/detail?id=__*{player.id}__}" class="btn btn-primary btn-sm">Thông tin chi
-                                                tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <img style="width: 100%; height: 50%" class="card-img-top" th:src="${player.image}"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${player.name}"></h5>
+                    <span> Mã cầu thủ: </span>
+                    <span class="card-text" th:text="${player.code}"></span><br>
+                    <span> Ngày sinh: </span>
+                    <span class="card-text" th:text="${player.dateOfBirth}"></span><br>
+                    <span> Kinh nghiệm: </span>
+                    <span class="card-text" th:text="${player.exp}"></span>
+                    <span> năm </span><br>
+                    <span> Vị trí cầu thủ: </span>
+                    <span class="card-text" th:text="${player.location}"></span><br>
+                    <span> Đội tuyển: </span>
+                    <span class="card-text" th:text="${player.team.name}"></span><br>
+                    <span> Trạng thái: </span>
+                    <span class="card-text" th:text="${player.status}"></span><br>
+                    <a th:href="@{/soccer-player/detail?id=__*{player.id}__}" class="btn btn-primary btn-sm">Thông tin
+                        chi
+                        tiết</a>
                 </div>
-                </body>
-                <!--<table class="table table-striped able-bordered table-hover">-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--<table class="table table-striped able-bordered table-hover">-->
 <!--    <tr>-->
 <!--        <th>Mã cầu thủ</th>-->
 <!--        <th>Họ và tên</th>-->
@@ -163,7 +165,8 @@
             <form action="/soccer-player/register">
                 <div class="modal-body">
                     <input type="hidden" name="registerId" id="registerId">
-                    <span>Bạn có chắc muốn đăng kí cầu thủ </span> <span style="color: red" id="registerName"></span>?
+                    <span>Bạn có chắc muốn đăng kí cầu thủ </span> <span style="color: red"
+                                                                             id="registerName"></span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
@@ -186,7 +189,8 @@
             <form action="/soccer-player/unregister">
                 <div class="modal-body">
                     <input type="hidden" name="unregisterId" id="unregisterId">
-                    <span>Bạn có chắc muốn huỷ đăng kí cầu thủ </span> <span style="color: red" id="unregisterName"></span>?
+                    <span>Bạn có chắc muốn huỷ đăng kí cầu thủ </span> <span style="color: red"
+                                                                                 id="unregisterName"></span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
