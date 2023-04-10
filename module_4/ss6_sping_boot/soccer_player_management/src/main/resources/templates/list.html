@@ -56,7 +56,8 @@
         <th>Ảnh đại diện</th>
         <th>Đội tuyển</th>
         <th>Trạng thái</th>
-        <th>Cập nhật trạng thái</th>
+        <th>Đăng kí đá</th>
+        <th>Huỷ đăng kí đá</th>
         <th>Thông tin chi tiết</th>
         <th>Sửa</th>
         <th>Xoá</th>
@@ -73,16 +74,22 @@
         <td>
             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"
                     th:attr="onclick=|infoRegister('${soccerPlayer.id}', '${soccerPlayer.name}')|">
-                Cập nhật
+                Đăng kí
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#unregister"
+                    th:attr="onclick=|infoUnregister('${soccerPlayer.id}', '${soccerPlayer.name}')|">
+                Huỷ
             </button>
         </td>
         <td><a th:href="@{/soccer-player/detail?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Thông tin chi
             tiết</a></td>
         <td><a th:href="@{/soccer-player/update?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Sửa</a></td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modelDelete" data-target="#modelDelete"
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelDelete"
                     th:attr="onclick=|infoDelete('${soccerPlayer.id}', '${soccerPlayer.name}')|">
-                Delete
+                Xoá
             </button>
         </td>
         </td>
@@ -113,6 +120,52 @@
         <i class="ti-angle-right">Next</i>
     </a>
 </div>
+<!--Modal đăng kí cầu thủ-->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Xóa cầu thủ </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/soccer-player/register">
+                <div class="modal-body">
+                    <input type="hidden" name="registerId" id="registerId">
+                    <span>Bạn có chắc muốn đăng kí cầu thủ </span> <span style="color: red" id="registerName"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-danger">Đăng kí</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Modal huỷ đăng kí cầu thủ-->
+<div class="modal fade" id="unregister" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Xóa cầu thủ </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/soccer-player/unregister">
+                <div class="modal-body">
+                    <input type="hidden" name="unregisterId" id="unregisterId">
+                    <span>Bạn có chắc muốn huỷ đăng kí cầu thủ </span> <span style="color: red" id="unregisterName"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-danger">Huỷ đăng kí</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!--Modal xoá-->
 <div class="modal fade" id="modelDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -130,30 +183,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-                    <button type="submit" class="btn btn-danger">Đăng kí</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!--Modal đăng kí cầu thủ-->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"> Xóa cầu thủ </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/soccer-player/register">
-                <div class="modal-body">
-                    <input type="hidden" name="registerId" id="registerId">
-                    <span>Bạn có chắc muốn Đăng kí cầu thủ </span> <span style="color: red" id="registerName"></span>?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-                    <button type="submit" class="btn btn-danger">Đăng kí</button>
+                    <button type="submit" class="btn btn-danger">Xoá</button>
                 </div>
             </form>
         </div>
@@ -169,6 +199,13 @@
         document.getElementById("registerId").value = id;
         document.getElementById("registerName").innerText = name;
     }
+
+    function infoUnregister(id, name) {
+        document.getElementById("unregisterId").value = id;
+        document.getElementById("unregisterName").innerText = name;
+    }
+
+
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

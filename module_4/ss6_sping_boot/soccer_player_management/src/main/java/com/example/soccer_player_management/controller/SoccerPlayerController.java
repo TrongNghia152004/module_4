@@ -4,7 +4,6 @@ import com.example.soccer_player_management.dto.SoccerPlayerCreateAndUpdateDTO;
 import com.example.soccer_player_management.model.SoccerPlayer;
 import com.example.soccer_player_management.service.ISoccerPlayerService;
 import com.example.soccer_player_management.service.ITeamService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,13 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Controller
 @RequestMapping("soccer-player")
@@ -124,8 +120,11 @@ public class SoccerPlayerController {
         soccerPlayerService.register(soccerPlayer);
         return "redirect:/soccer-player";
     }
-//    @ExceptionHandler(Exception.class)
-//    public String handle(){
-//        return "/error";
-//    }
+
+    @GetMapping("/unregister")
+    public String unregisterSoccerPlayer(@RequestParam int unregisterId) {
+        SoccerPlayer soccerPlayer = soccerPlayerService.findById(unregisterId).get();
+        soccerPlayerService.unRegister(soccerPlayer);
+        return "redirect:/soccer-player";
+    }
 }

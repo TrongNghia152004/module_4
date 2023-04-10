@@ -64,6 +64,17 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     }
 
     @Override
+    public void unRegister(SoccerPlayer soccerPlayer) {
+        List<SoccerPlayer> soccerPlayerList = soccerPlayerRepository.findAll();
+            for (int i = 0; i < soccerPlayerList.size(); i++) {
+                if (soccerPlayerList.get(i).getId() == soccerPlayer.getId()) {
+                    soccerPlayerList.get(i).setStatus("Dự bị");
+                    soccerPlayerRepository.save(soccerPlayerList.get(i));
+            }
+        }
+    }
+
+    @Override
     public List<SoccerPlayer> footballTeam() {
         return soccerPlayerRepository.findAllByStatus();
     }
