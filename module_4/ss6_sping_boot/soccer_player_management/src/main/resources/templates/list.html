@@ -46,55 +46,85 @@
     Thêm mới cầu thủ</a>
 <a class="btn btn-add btn-sm" href="/soccer-player/football-team">
     Đội bóng của tôi</a>
-<table class="table table-striped able-bordered table-hover">
-    <tr>
-        <th>Mã cầu thủ</th>
-        <th>Họ và tên</th>
-        <th>Ngày sinh</th>
-        <th>Kinh nghiệm</th>
-        <th>Vị trí</th>
-        <th>Ảnh đại diện</th>
-        <th>Đội tuyển</th>
-        <th>Trạng thái</th>
-        <th>Đăng kí đá</th>
-        <th>Huỷ đăng kí đá</th>
-        <th>Thông tin chi tiết</th>
-        <th>Sửa</th>
-        <th>Xoá</th>
-    </tr>
-    <tr th:each="soccerPlayer, iterStat : ${soccerPlayerList}">
-        <td th:text="*{soccerPlayer.code}"></td>
-        <td th:text="*{soccerPlayer.name}"></td>
-        <td th:text="${soccerPlayer.dateOfBirth}"></td>
-        <td th:text="*{soccerPlayer.exp}"></td>
-        <td th:text="*{soccerPlayer.location}"></td>
-        <td><img th:src="*{soccerPlayer.image}">
-        <td th:text="*{soccerPlayer.team?.name}"></td>
-        <td th:text="*{soccerPlayer.status}"></td>
-        <td>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"
-                    th:attr="onclick=|infoRegister('${soccerPlayer.id}', '${soccerPlayer.name}')|">
-                Đăng kí
-            </button>
-        </td>
-        <td>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#unregister"
-                    th:attr="onclick=|infoUnregister('${soccerPlayer.id}', '${soccerPlayer.name}')|">
-                Huỷ
-            </button>
-        </td>
-        <td><a th:href="@{/soccer-player/detail?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Thông tin chi
-            tiết</a></td>
-        <td><a th:href="@{/soccer-player/update?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Sửa</a></td>
-        <td>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelDelete"
-                    th:attr="onclick=|infoDelete('${soccerPlayer.id}', '${soccerPlayer.name}')|">
-                Xoá
-            </button>
-        </td>
-        </td>
-    </tr>
-</table>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" th:each="player : ${soccerPlayerList}">
+            <div class="card">
+                <img style="width: 100%; height: 50%" class="card-img-top" th:src="${player.image}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${player.name}"></h5>
+                                    <span> Mã cầu thủ: </span>
+                                    <span class="card-text" th:text="${player.code}"></span><br>
+                                    <span> Ngày sinh: </span>
+                                    <span class="card-text" th:text="${player.dateOfBirth}"></span><br>
+                                    <span> Kinh nghiệm: </span>
+                                    <span class="card-text" th:text="${player.exp}"></span>
+                                    <span> năm </span><br>
+                                    <span> Vị trí cầu thủ: </span>
+                                    <span class="card-text" th:text="${player.location}"></span><br>
+                                    <span> Đội tuyển: </span>
+                                    <span class="card-text" th:text="${player.team.name}"></span><br>
+                                    <span> Trạng thái: </span>
+                                    <span class="card-text" th:text="${player.status}"></span><br>
+                                    <a th:href="@{/soccer-player/detail?id=__*{player.id}__}" class="btn btn-primary btn-sm">Thông tin chi
+                                                tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </body>
+                <!--<table class="table table-striped able-bordered table-hover">-->
+<!--    <tr>-->
+<!--        <th>Mã cầu thủ</th>-->
+<!--        <th>Họ và tên</th>-->
+<!--        <th>Ngày sinh</th>-->
+<!--        <th>Kinh nghiệm</th>-->
+<!--        <th>Vị trí</th>-->
+<!--        <th>Ảnh đại diện</th>-->
+<!--        <th>Đội tuyển</th>-->
+<!--        <th>Trạng thái</th>-->
+<!--        <th>Đăng kí đá</th>-->
+<!--        <th>Huỷ đăng kí đá</th>-->
+<!--        <th>Thông tin chi tiết</th>-->
+<!--        <th>Sửa</th>-->
+<!--        <th>Xoá</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="soccerPlayer, iterStat : ${soccerPlayerList}">-->
+<!--        <td th:text="*{soccerPlayer.code}"></td>-->
+<!--        <td th:text="*{soccerPlayer.name}"></td>-->
+<!--        <td th:text="${soccerPlayer.dateOfBirth}"></td>-->
+<!--        <td th:text="*{soccerPlayer.exp}"></td>-->
+<!--        <td th:text="*{soccerPlayer.location}"></td>-->
+<!--        <td><img th:src="*{soccerPlayer.image}">-->
+<!--        <td th:text="*{soccerPlayer.team?.name}"></td>-->
+<!--        <td th:text="*{soccerPlayer.status}"></td>-->
+<!--        <td>-->
+<!--            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"-->
+<!--                    th:attr="onclick=|infoRegister('${soccerPlayer.id}', '${soccerPlayer.name}')|">-->
+<!--                Đăng kí-->
+<!--            </button>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#unregister"-->
+<!--                    th:attr="onclick=|infoUnregister('${soccerPlayer.id}', '${soccerPlayer.name}')|">-->
+<!--                Huỷ-->
+<!--            </button>-->
+<!--        </td>-->
+<!--        <td><a th:href="@{/soccer-player/detail?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Thông tin chi-->
+<!--            tiết</a></td>-->
+<!--        <td><a th:href="@{/soccer-player/update?id=__*{soccerPlayer.id}__}" class="btn btn-primary btn-sm">Sửa</a></td>-->
+<!--        <td>-->
+<!--            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelDelete"-->
+<!--                    th:attr="onclick=|infoDelete('${soccerPlayer.id}', '${soccerPlayer.name}')|">-->
+<!--                Xoá-->
+<!--            </button>-->
+<!--        </td>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
 <div class="text-center">
     <form action="/soccer-player" method="get">
         <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
@@ -105,7 +135,7 @@
     </form>
     <a class="page-item btn btn-dark active1" th:if="${soccerPlayerList.hasPrevious()}"
        th:href="@{/soccer-player(page = ${soccerPlayerList.number - 1}, name = ${name})}">
-        <i class="ti-angle-left">Previous</i>
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
 
     <a class="page-item number btn btn-dark active1"
@@ -117,7 +147,7 @@
 
     <a class="page-item btn btn-dark active1" th:if="${soccerPlayerList.hasNext()}"
        th:href="@{/soccer-player(page = ${soccerPlayerList.number + 1}, name =${name})}">
-        <i class="ti-angle-right">Next</i>
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
     </a>
 </div>
 <!--Modal đăng kí cầu thủ-->

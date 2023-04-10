@@ -16,14 +16,24 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("soccerPlayerFavourites")
 @RequestMapping("soccer-player")
 public class SoccerPlayerController {
+
+    @ModelAttribute("soccerPlayerFavourites")
+    public List<SoccerPlayer> soccerPlayerList() {
+        return new ArrayList<>();
+    }
+
     @Autowired
     private ISoccerPlayerService soccerPlayerService;
     @Autowired
@@ -32,7 +42,7 @@ public class SoccerPlayerController {
     @GetMapping("/football-team")
     public String footballTeam(Model model) {
         List<SoccerPlayer> soccerPlayerList = soccerPlayerService.footballTeam();
-        model.addAttribute("soccerPlayerList" , soccerPlayerList);
+        model.addAttribute("soccerPlayerList", soccerPlayerList);
         return "/football-team";
     }
 
@@ -61,9 +71,12 @@ public class SoccerPlayerController {
     }
 
     @GetMapping("/detail")
-    public String detailSoccerPlayer(@RequestParam int id, Model model) {
-        SoccerPlayer soccerPlayer = soccerPlayerService.findById(id).get();
-        model.addAttribute("soccerPlayer", soccerPlayer);
+    public String detailSoccerPlayer(@RequestParam int id, Model model, HttpServletResponse response) {
+        SoccerPlayer player = soccerPlayerService.findById(id).get();
+        Cookie cookie = new Cookie("favourites", player + "");
+        cookie.setMaxAge(1 * 24 * 60 * 60);
+        response.addCookie(cookie);
+        model.addAttribute("player", player);
         return "/detail";
     }
 
@@ -126,5 +139,26 @@ public class SoccerPlayerController {
         SoccerPlayer soccerPlayer = soccerPlayerService.findById(unregisterId).get();
         soccerPlayerService.unRegister(soccerPlayer);
         return "redirect:/soccer-player";
+    }
+
+    @GetMapping("/favourites")
+    public String favourites(@RequestParam() int id, @ModelAttribute("soccerPlayerFavourites") List<SoccerPlayer> soccerPlayerList
+            , RedirectAttributes redirectAttributes, Model model) {
+        SoccerPlayer player = soccerPlayerService.findById(id).get();
+        model.addAttribute("player", player);
+        soccerPlayerList.add(player);
+        redirectAttributes.addFlashAttribute("msg", "Thêm vào danh sách yêu thích thành công");
+        return "redirect:/soccer-player";
+    }
+
+    @GetMapping("/favourite-list")
+    public String listSoccerPlayerFavourites(@ModelAttribute("soccerPlayerFavourites") List<SoccerPlayer> soccerPlayerList
+            , Model model) {
+        model.addAttribute("favouritesList", soccerPlayerList);
+        return "/favourites";
+    }
+    @ExceptionHandler(Exception.class)
+    public String handle(){
+        return "/error";
     }
 }
