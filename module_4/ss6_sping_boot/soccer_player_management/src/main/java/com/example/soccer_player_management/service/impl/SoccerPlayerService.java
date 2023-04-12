@@ -2,6 +2,7 @@ package com.example.soccer_player_management.service.impl;
 
 import com.example.soccer_player_management.dto.SoccerPlayerCreateAndUpdateDTO;
 import com.example.soccer_player_management.model.SoccerPlayer;
+import com.example.soccer_player_management.model.Team;
 import com.example.soccer_player_management.repository.ISoccerPlayerRepository;
 import com.example.soccer_player_management.service.ISoccerPlayerService;
 import org.springframework.beans.BeanUtils;
@@ -53,7 +54,6 @@ public class SoccerPlayerService implements ISoccerPlayerService {
         BeanUtils.copyProperties(soccerPlayerCreateAndUpdateDTO, soccerPlayer);
         soccerPlayerRepository.save(soccerPlayer);
     }
-
     @Override
     public void register(SoccerPlayer soccerPlayer) {
         List<SoccerPlayer> soccerPlayerList = soccerPlayerRepository.findAll();

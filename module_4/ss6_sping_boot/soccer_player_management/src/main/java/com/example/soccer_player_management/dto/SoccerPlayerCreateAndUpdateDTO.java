@@ -3,11 +3,16 @@ package com.example.soccer_player_management.dto;
 import com.example.soccer_player_management.model.Team;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class SoccerPlayerCreateAndUpdateDTO implements Validator {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
     @NotBlank(message = "Tên không được để trống!")
@@ -37,6 +42,21 @@ public class SoccerPlayerCreateAndUpdateDTO implements Validator {
         this.status = status;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -92,14 +112,6 @@ public class SoccerPlayerCreateAndUpdateDTO implements Validator {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     @Override

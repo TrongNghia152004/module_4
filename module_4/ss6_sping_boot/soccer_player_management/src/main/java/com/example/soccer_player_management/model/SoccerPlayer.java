@@ -1,5 +1,7 @@
 package com.example.soccer_player_management.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -23,6 +25,7 @@ public class SoccerPlayer {
     private String image;
     @ManyToOne
     @JoinColumn(name = "id_team")
+    @JsonBackReference
     private Team team;
 
     private String status = "Dự bị";

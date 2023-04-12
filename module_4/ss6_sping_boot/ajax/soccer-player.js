@@ -39,11 +39,6 @@ function renderPage(soccerPlayerList) {
     $("#pagination").html(pageable);
 }
 
-function getSoccerPlayerIdAndName(id, name) {
-    document.getElementById("deleteId").value = id;
-    document.getElementById("deleteName").innerText = name;
-}
-
 // list
 function renderSoccerPlayerList(soccerPlayerList) {
     debugger;
@@ -99,7 +94,6 @@ $(document).ready(function () {
     getSoccerPlayerList();
 });
 
-// add
 $("#add-soccer-player").submit(function (event) {
     debugger;
     event.preventDefault();
@@ -121,6 +115,7 @@ function addSoccerPlayer(code, name, dateOfBirth, exp, location, image, team) {
         },
         url: `http://localhost:8080/api/soccer-player`,
         type: "post",
+
         data: JSON.stringify({
             code: code,
             name: name,
@@ -169,16 +164,15 @@ function getSelectTeamList() {
 function showTeamSelectOptionCreate(teams) {
     let element = "";
     element += `
-  <select class="form-control" id="teamDTO" name="teamDTO">`;
-
+  <select class="form-control" id="team" name="team">`;
     for (let team of teams) {
-        element += `<option value="${teams.id}">`;
-        element += teams.name;
+        element += `<option value="${team.id}">`;
+        element += team.name;
         `</option>`;
     }
 
     `</select>`;
-    $("#teamDTO").html(element);
+    $("#team").html(element);
 }
 
 $(document).ready(function () {
