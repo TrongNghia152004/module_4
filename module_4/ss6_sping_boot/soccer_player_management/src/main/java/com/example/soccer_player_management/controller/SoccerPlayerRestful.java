@@ -24,10 +24,8 @@ public class SoccerPlayerRestful {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public Page<SoccerPlayer> getList(@PageableDefault(size = 3) Pageable pageable
-            , @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "1") Integer page,
-                                      @RequestParam(defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                      @RequestParam(defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
-        return soccerPlayerService.findAll(name, startDate, endDate, pageable);
+            , @RequestParam(defaultValue = "") String name) {
+        return soccerPlayerService.findAllByName(name, pageable);
     }
 
     @PostMapping("")
@@ -40,6 +38,12 @@ public class SoccerPlayerRestful {
     @GetMapping("detail/{id}")
     public SoccerPlayer getSoccerPlayerDetail(@PathVariable int id) {
         return soccerPlayerService.findById(id).get();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("update/{id}")
+    public void updateSoccerPlayer(@RequestBody SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO, @PathVariable int id) {
+        soccerPlayerService.update(soccerPlayerCreateAndUpdateDTO, id);
     }
 
     @ResponseStatus(HttpStatus.OK)

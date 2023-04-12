@@ -21,6 +21,8 @@ public interface ISoccerPlayerRepository extends JpaRepository<SoccerPlayer, Int
     @Transactional
     @Query(value = "select * from soccer_player where status = 'Đã đăng kí'" , nativeQuery = true)
     List<SoccerPlayer> findAllByStatus();
+    Page<SoccerPlayer> findAllByNameContaining(String name, Pageable pageable);
+
 }
 
 

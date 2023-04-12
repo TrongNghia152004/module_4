@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface ISoccerPlayerService {
     Page<SoccerPlayer> findAll(String name, LocalDate startDate, LocalDate endDate, Pageable pageable);
+    Page<SoccerPlayer> findAllByName(String name, Pageable pageable);
 
     Optional<SoccerPlayer> findById(int id);
 
@@ -18,7 +19,7 @@ public interface ISoccerPlayerService {
 
     void create(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO);
 
-    void update(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO);
+    void update(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO , int id);
 
     void register(SoccerPlayer soccerPlayer);
 

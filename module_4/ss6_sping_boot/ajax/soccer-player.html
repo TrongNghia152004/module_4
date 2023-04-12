@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<!-- or -->
+<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Font-icon css-->
+<link rel="stylesheet" type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+    .active1 {
+        margin: 10px 7px;
+        background: white;
+        color: black;
+    }
+</style>
+<body>
+<h1 class="text-center">Danh sách cầu thủ</h1>
+                        <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="search" value=""
+                                   id="search">
+                            <button class="btn btn-outline-warning" type="button"
+                                    onclick="getSoccerPlayerList()" style="width: 136px">Tìm kiếm</button>
+                        </div>
+</form>
+<main class="app-content" id="soccer-player">
+    <div class="row mx-0">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="element-button">
+                        <a class="btn btn-add btn-sm" href="#" id="them" title="Thêm" data-toggle="modal"
+                           data-target="#add-soccer-player"><i class="fas fa-plus"></i>
+                            Thêm mới cầu thủ</a>
+                    </div>
+                    <table id="tableStudent" class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã cầu thủ</th>
+                            <th>Tên cầu thủ</th>
+                            <th>Ngày sinh</th>
+                            <th>Kinh nghiệm</th>
+                            <th>Vị trí</th>
+                            <th>Hình ảnh</th>
+                            <th>Trạng thái</th>
+                            <th>Đội tuyển</th>
+                        </tr>
+                        </thead>
+                        <tbody id="list-soccer-player">
+                        </tbody>
+                    </table>
+                    <div class="text-center" style="color: red" id="listNull"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pagination" style="margin-bottom: 85px;
+    margin-top: 58px;" class="text-center"></div>
+</main>
+<!-- modal thêm mới -->
+<div class="modal fade" id="addSoccerPlayer" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false"
+     data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header col-md-9">
+                <h3 style="text-align:center; color: #ea0000;">Thêm mới cầu thủ</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" id="add-soccer-player">
+                    <div class="form-group">
+                        <div id="thongbao" class="text-danger" style="text-align: center;"></div>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="control-label col-xs-3">Mã cầu thủ<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="code" name="code">
+                        </div>
+                        <div style="color: red" id="addCodeValid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label col-xs-3">Tên cầu thủ<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div style="color: red" id="addNameValid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="control-label col-xs-3">Ngày sinh<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12">
+                            <input type="date" class="form-control" id="date" name="date">
+                        </div>
+                        <div style="color: red" id="addDateOfBirthValid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exp" class="control-label col-xs-3">Kinh nghiệm<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="exp" name="exp">
+                        </div>
+                        <div style="color: red" id="addExpValid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location" class="control-label col-xs-3">Vị trí<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="location" name="location">
+                        </div>
+                        <div style="color: red" id="addLocationValid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image" class="control-label col-xs-3">Hình ảnh<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="image" name="image">
+                        </div>
+                        <div style="color: red" id="addImageValid"></div>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="status" class="control-label col-xs-3">Trạng thái<span style="color: red" class="span">*</span></label>-->
+<!--                        <div class="col-md-12">-->
+<!--                            <input type="text" class="form-control" id="status" name="status">-->
+<!--                        </div>-->
+<!--                        <div style="color: red" id="addStatusValid"></div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <label class="control-label">Đội tuyển<span style="color: red" class="span">*</span></label>
+                        <div class="col-md-12" id="team">
+                        </div>
+                        <div style="color: red" id="addTeamValid"></div>
+                    </div>
+                    <div style="border: 0" class="modal-footer col-md-5 text-center">
+                        <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+                        <button class="btn btn-danger btn-sm" data-dismiss="modal">Hủy bỏ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="soccer-player.js"></script>
+</body>
+</html>

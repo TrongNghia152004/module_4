@@ -123,7 +123,7 @@ public class SoccerPlayerController {
             return "/update";
         }
         redirectAttributes.addFlashAttribute("msg", "Chỉnh sửa thành công");
-        soccerPlayerService.update(soccerPlayerCreateAndUpdateDTO);
+        soccerPlayerService.update(soccerPlayerCreateAndUpdateDTO , soccerPlayerCreateAndUpdateDTO.getId());
         return "redirect:/soccer-player";
     }
 

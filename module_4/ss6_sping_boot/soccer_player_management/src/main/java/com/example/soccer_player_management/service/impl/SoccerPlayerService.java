@@ -26,6 +26,11 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     }
 
     @Override
+    public Page<SoccerPlayer> findAllByName(String name, Pageable pageable) {
+        return soccerPlayerRepository.findAllByNameContaining(name, pageable);
+    }
+
+    @Override
     public Optional<SoccerPlayer> findById(int id) {
         return soccerPlayerRepository.findById(id);
     }
@@ -43,8 +48,8 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     }
 
     @Override
-    public void update(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO) {
-        SoccerPlayer soccerPlayer = new SoccerPlayer();
+    public void update(SoccerPlayerCreateAndUpdateDTO soccerPlayerCreateAndUpdateDTO , int id) {
+        SoccerPlayer soccerPlayer = soccerPlayerRepository.findById(id).get();
         BeanUtils.copyProperties(soccerPlayerCreateAndUpdateDTO, soccerPlayer);
         soccerPlayerRepository.save(soccerPlayer);
     }
